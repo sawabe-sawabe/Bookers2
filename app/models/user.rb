@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :book, dependent: :destroy
   attachment :profile_image
+ validates :name,    length: { minimum: 2 }  
+  
 end

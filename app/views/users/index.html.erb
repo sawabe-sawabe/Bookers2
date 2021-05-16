@@ -1,6 +1,12 @@
-  <p id="notice">Welcome! You have signed up sccessfully.</p>
+
 <div class="container px-5 px-sm-0"> 
+
+
+
 <div class="row">
+ 
+  <%= render'books/book',book:@book ,users:@users%>
+ 
  
  <div class="col-md-8 offset-md-1">
  <h2>Users</h2>
@@ -14,14 +20,14 @@
   </tr> 
   </thead>
   <tbody>
-  <%= @users.each do |user| %> 
+  <% @usersindex.each do |user| %> 
    <tr>
      <td>
-      <%= attachment_image_tag @user,:profile_image,:fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+      <%= attachment_image_tag @user,:profile_image, format: 'jpeg', size: "40x40" , format: 'jpeg', fallback: "no_image.jpg" %>
     
      </td>
-     <td><%=user.name%><</td>
-     <td><%=link_to "show",user_path(users.id) %></td>
+     <td><%=user.name%></td>
+     <td><%=link_to "show",user_path(user.id) %></td>
     </tr> 
    <% end %> 
    </tbody>

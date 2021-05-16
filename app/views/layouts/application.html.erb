@@ -14,13 +14,13 @@
 
 <body>
   <header>
-   <nav class="navbar navbar-expand-lg navber-dark bg-dark">
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-     <%= link_to "Bookers",root_path,class:"navber-brand   text-light"%>
+     <a class="navbar-brand text-light h5" herf="root_path"><span>Bookers</span></a>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse show" id="navbarNavDropdown">
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
        <ul class="navbar-nav ml-auto ">
        <%if user_signed_in?%>
        <li>
@@ -55,7 +55,12 @@
       </ul>
     </div>  
    </header>  
+   
+
    <main> 
+     <%flash.each do |message_type, message|%>
+     <p id="notice"><%= message%></p>
+     <% end %>
     <%= yield %>
    </main>
    <footer>

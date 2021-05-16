@@ -1,9 +1,27 @@
-<p id="notice"></p>
+
  <div class="container">
+   
+
    <div class="row">
      <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
        <h2>User info</h2>
-        <%= form_with model: @user,  local:true do |f| %>
+        <% if @users.errors.any? %>
+
+        <div id="error_explamation">
+        <h2><%= @users.errors.count %>error prohibited this book from being saved:</h2>
+        <ul>
+        <% @users.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+          <%end%>
+        </ul>
+        </div>
+
+        <% end %>
+
+        
+        
+        
+        <%= form_with model: @users,  local:true do |f| %>
          <div class="form-group">
                <label for="user_name">Name</label>
                   <%= f.text_field :name,class:" form-control name" %>
@@ -11,7 +29,7 @@
 
            <div class="user-image">
                <label for="user">Image</label>
-                <%= f.attachment_field :profile_image %>
+               <%= f.attachment_field :profile_image %>
             </div>
 
             <div class="form-group">
