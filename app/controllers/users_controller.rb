@@ -4,25 +4,31 @@ class UsersController < ApplicationController
     @usersindex=User.all
     @users=User.find(current_user.id)
     @book=Book.new
+    
   end
   
   def show
-    @users=User.find(current_user.id)
+    @users=User.find(params[:id])
     @books=@users.books.reverse_order
     @book=Book.new
   end
   
   def create
    @book= Book.new(post_book_params)
-   if @book.user_id= current_user.id
-     @book.save
-     redirect_to user_path(current_user.id),notice:"Book was successfully created."
+   if @book.user_id= current_user.id 
+      if@book.save
+  
+       redirect_to book_path(@book.id),notice:"Book was successfully created."
+       else
+         @books=Book.all
+         render :index
+         
+         
+      end
    else
      render :index
-     
    end
-  end
-  
+   end
 
     def edit
     @users=User.find(params[:id])

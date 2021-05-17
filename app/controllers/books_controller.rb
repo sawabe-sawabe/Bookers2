@@ -3,7 +3,8 @@ class BooksController < ApplicationController
   def index
    @books= Book.all
    @book =Book.new
-  @user= User.find(current_user.id)
+   @user= User.find(current_user.id)
+   @users=User.all
   
   end
   
@@ -13,9 +14,11 @@ class BooksController < ApplicationController
    if @book.user_id= current_user.id 
       if@book.save
   
-       redirect_to book_path(current_user.id),notice:"Book was successfully created."
+       redirect_to book_path(@book.id),notice:"Book was successfully created."
        else
-         redirect_to books_path
+         @books=Book.all
+         render :index
+         
          
       end
    else
@@ -50,9 +53,11 @@ class BooksController < ApplicationController
    end
   end   
   def destroy
-    book=Book.find(params[:id])
-   if book.user_id == current_user.id
-    book.destroy
+    books=Book.find(params[:id])
+    users= User.find(books.user_id)
+    date=users.books
+   if books.user_id == current_user.id
+      date.destroy
     redirect_to books_path
    end
   end
@@ -68,6 +73,6 @@ end
 def user_params
    params.require(:user).permit(:name,:profile_image,:introduction)
    
- end
+end
 
 end
