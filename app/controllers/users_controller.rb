@@ -1,7 +1,16 @@
 class UsersController < ApplicationController
+ before_action :authenticate_user!, only:[:index,:create,:edit,:update,:show]
+ before_action :ensure_current_user, {only: [:edit]}
+
+def ensure_current_user
   
+  if current_user.id != params[:id].to_i
+    
+    redirect_to user_path(current_user.id)
+  end
+end
   def index
-    @usersindex=User.all
+    @user=User.all
     @users=User.find(current_user.id)
     @book=Book.new
     
@@ -12,7 +21,7 @@ class UsersController < ApplicationController
     @books=@users.books.reverse_order
     @book=Book.new
   end
-  
+ 
   def create
    @book= Book.new(post_book_params)
    if @book.user_id= current_user.id 
@@ -31,14 +40,11 @@ class UsersController < ApplicationController
    end
 
     def edit
+     
     @users=User.find(params[:id])
-    
-    if @users.id == current_user.id
-      render 'edit'
-    else
-      redirect_to user_path(@user.id)
+   
     end  
-    end  
+
 
   def update
     @users=User.find(params[:id])

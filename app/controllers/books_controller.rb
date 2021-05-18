@@ -1,4 +1,7 @@
 class BooksController < ApplicationController
+  before_action :authenticate_user!, only:[:index,:create,:edit,:update,:show]
+
+ 
   
   def index
    @books= Book.all
@@ -10,21 +13,16 @@ class BooksController < ApplicationController
   
 
   def create
+      
    @book= Book.new(post_book_params)
-   if @book.user_id= current_user.id 
+   @book.user_id= current_user.id 
       if@book.save
   
        redirect_to book_path(@book.id),notice:"Book was successfully created."
        else
          @books=Book.all
          render :index
-         
-         
       end
-   else
-     render :index
-     
-   end
   end
 
   def show
@@ -36,11 +34,10 @@ class BooksController < ApplicationController
   
   def edit
     @book= Book.find(params[:id])
-    if @book.user.id == current_user.id
-        render :edit
-    else
-        redirect_to user_path(@book.user.id)
-    end    
+    unless @book.user == current_user
+      redirect_to  books_path
+    end
+      
   end  
   
   def update
@@ -53,21 +50,17 @@ class BooksController < ApplicationController
    end
   end   
   def destroy
-    books=Book.find(params[:id])
-    users= User.find(books.user_id)
-    date=users.books
-   if books.user_id == current_user.id
-      date.destroy
+  
+   book=Book.find(params[:id])
+   book.destroy
     redirect_to books_path
-   end
   end
 
 
 private
 
 def post_book_params
-  params.require(:book).permit(:title,:body,:user_id)
-
+  params.require(:book).permit(:title,:body)
 end
 
 def user_params

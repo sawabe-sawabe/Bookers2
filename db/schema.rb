@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2021_05_16_072953) do
     t.string "title"
     t.text "body"
     t.integer "user_id"
+    t.integer "profile_image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -32,7 +33,6 @@ ActiveRecord::Schema.define(version: 2021_05_16_072953) do
     t.text "introduction"
     t.string "profile_image_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
