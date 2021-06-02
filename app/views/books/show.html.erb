@@ -33,7 +33,7 @@
       <% end %>
     </td>
     <td>
-       コメント数：<%= @books.book_comments.count %>
+      コメント数：<%= @books.book_comments.count %>
     </td>    
   <% end %>
 
@@ -70,7 +70,7 @@
 　　</div>
 　　<div class="new-comment">
 　　　<%= form_with(model:[@books, @book_comment], local: true) do |f| %>
-    　<p><%= f.text_area :comment,  size: "75x10"%></p>
+    　<p><%= f.text_area :comment,  size: "75x10" %></p>
   　　<p><%= f.submit "送信" %></p>
 　　　<% end %>
 　　</div>
