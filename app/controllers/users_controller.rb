@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create, :edit, :update, :show]
   before_action :ensure_current_user, { only: [:edit] }
-
+ 
   def ensure_current_user
     if current_user.id != params[:id].to_i
 
@@ -13,14 +13,24 @@ class UsersController < ApplicationController
     @user = User.all
     @users = User.find(current_user.id)
     @book = Book.new
+    @relationship = @users.followings.find_by(follower_id: current_user.id)
   end
 
   def show
     @users = User.find(params[:id])
     @books = @users.books.reverse_order
     @book = Book.new
+    @relationship = @users.followings.find_by(follower_id: current_user.id)
   end
-
+  def followings
+    @followings = @users.following_users
+  end
+    
+  def followers
+    @followers = @users.follower_users
+  end
+ 
+ 
   def create
     @book = Book.new(post_book_params)
     if @book.user_id = current_user.id
@@ -31,7 +41,7 @@ class UsersController < ApplicationController
         @books = Book.all
         render :index
 
-       end
+      end
     else
       render :index
     end
@@ -59,4 +69,7 @@ class UsersController < ApplicationController
   def post_book_params
     params.require(:book).permit(:title, :body, :user_id)
   end
+
+ 
+
 end
