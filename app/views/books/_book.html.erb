@@ -30,7 +30,7 @@
         <%if current_user.following?(users)%>
          <%=form_with model: @relationship, url: relationship_path, method: :delete, local: true do |f|%>
        <tr>
-         <th> <%=f.submit "フォローを外す",class:"btn btn-sm btn-success"%></th>
+         <th> <%=f.submit "フォローを外す",class:"btn btn-sm btn-info"%></th>
          <% end %>
         <% else %>
          <%=form_with model: @relationship, url: relationships_path, local: true do |f|%>

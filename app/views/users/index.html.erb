@@ -35,8 +35,8 @@
      
      <% else %>
      
-       <%= hidden_field_tag :follow_id, user.id %>
-      <td><%= link_to "フォローをする",relationships_path,method: :post %></td>
+       
+      <td><%= link_to "フォローをする",relationships_path(:follow_id => user.id ),method: :post %></td>
       
       <% end %> 
     <% end %>
