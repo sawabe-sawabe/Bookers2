@@ -56,8 +56,26 @@
     </div>  
    </header>  
    
-
    <main> 
+   <% if user_signed_in? %>
+   <div class="container px-5 px-sm-0"> 
+    <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-8 offset-md-1">
+    
+ 
+      <span><%= form_with url: search_path, method: :get, local: true  do |form| %>
+      <%= form.text_field :word %>
+       <%= form.submit "検索" %>
+　　  <%=  form.select :range ,[['---選択してください---', ''], ['User', '1'], ['Book', '2']] %>
+      <%=  form.select :search, [["前方一致","forward_match"], ["後方一致","backward_match"], ["完全一致","perfect_match"], ["部分一致","partial_match"]] %>
+   </div>
+   </div>
+   </div>
+   <% end %>
+
+<% end %>
+
      <%flash.each do |message_type, message|%>
      <p id="notice"><%= message%></p>
      <% end %>

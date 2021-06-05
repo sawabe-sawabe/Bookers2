@@ -25,6 +25,20 @@ end
     following_users.include?(user)
  end 
 
-
-
+def self.search(seach,word)
+  if  seach == "forward_match"
+    @user = User.where("name LIKE?","#{word}%") 
+    
+  elsif seach == "backward_match"
+      @user = User.where("name LIKE?","%#{word}%")
+   
+  elsif seach == "perfect_match"
+      @user = User.where("name LIKE?","#{word}")
+          
+  elsif seach == "partial_match"
+      @user = User.where("name LIKE?","%#{word}%")
+  else
+    @user = User.all
+  end
+end
 end
