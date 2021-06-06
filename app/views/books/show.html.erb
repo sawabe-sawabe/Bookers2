@@ -20,23 +20,17 @@
      </td>
      <td><%=link_to books_path do %><%=@books.title%><% end %></td>
      <td><%=@books.body %></td>
-     <% if @books.favorited_by?(current_user) %>
+    
+     　
      <td>
-      <%= link_to book_favorites_path(@books.id), method: :delete do %>
-        ♥<%= @books.favorites.count %> 
-      <% end %>
+       <%= render 'favorites/favorite-btn',  book:@books %>
+      　
     </td>
-    <% else %>
-    <td>
-      <%= link_to book_favorites_path(@books.id), method: :post do %>
-        ♡<%= @books.favorites.count %> 
-      <% end %>
-    </td>
+   
     <td>
       コメント数：<%= @books.book_comments.count %>
     </td>    
-  <% end %>
-
+  
      <% if @books.user == current_user %>
      <td><%=link_to "Edit",edit_book_path(@books.id),class:"btn btn-sm btn-success "%></td>
      <td><%=link_to "Destroy",book_path(@books.id),method: :delete,"data-confirm"=>"本当に削除しますか？",class:"btn btn-sm btn-danger "%></td>
@@ -46,38 +40,17 @@
    
    </tbody>
    </table>
-  　<div class="comments">
-　　　<table>
-　　　 <tbody>
-　　　 <% @books.book_comments.each do |book_comment| %>
-　　　 <tr>        
-　　　   
-　　　    <td>
-　　　      
-          <p> <%= attachment_image_tag book_comment.user, :profile_image,   format: 'image', size: "40x40" , fallback: "no_image.jpg" %><p>
-           <%=link_to user_path(book_comment.user) do %>
-           <p><%= book_comment.user.name %></p>
-           <% end %>
-         
-          <td><%= book_comment.comment %></td>
-          <% if book_comment.user == current_user %>
-          <td><%=link_to "Destroy", book_book_comment_path(@books.id),method: :delete,"data-confirm"=>"本当に削除しますか？",class:"btn btn-sm btn-danger "%></td>
-          <% end %>
-　　　   <% end %>
-　　　  </tr>
-　　　 </tbody>
-　　　</table> 
-　　</div>
-　　<div class="new-comment">
-　　　<%= form_with(model:[@books, @book_comment], local: true) do |f| %>
-    　<p><%= f.text_area :comment,  size: "75x10" %></p>
-  　　<p><%= f.submit "送信" %></p>
-　　　<% end %>
-　　</div>
+    <table>
+　　　<tbody id="comments_area">
+　　　  <%= render partial: 'comments/index', locals: { books: @books } %>
+　　　</tbody>
+　　</table> 
+　   <div id="new-comment">
+       <%= render partial: 'comments/form', locals: { books: @books, book_comment: @book_comment } %>
+     </div> 　
+  　
+  
+  </div>
+  </div>
 
-  
-  </div>
-  </div>
-  </div> 
-  
  
