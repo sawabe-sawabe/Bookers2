@@ -86,11 +86,11 @@
      <td><%=book.body %></td>
     
      
-     <td>
+     　<td>
      
-       <%= render partial: 'favorites/favorite-btn', locals: { book: book} %>
+        <%= render 'favorites/favorite-btn',  book:book %>
       　
-    </td>
+      </td>
      
   　 <td>
        コメント件数：<%= book.book_comments.count %>

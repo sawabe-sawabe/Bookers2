@@ -35,7 +35,7 @@
         <% else %>
          
           
-          <th><%= link_to "フォローをする",relationships_path(:follow_id => users.id ),method: :post, class:"btn btn-sm btn-success"%></th>
+          <th><%= link_to "フォローをする",relationships_path(:follow_id => @users.id ),method: :post, class:"btn btn-sm btn-success"%></th>
          
         <% end %> 
       <% end %>

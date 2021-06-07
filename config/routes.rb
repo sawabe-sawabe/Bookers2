@@ -11,8 +11,10 @@ Rails.application.routes.draw do
   resources :books, only: [:new, :create, :index, :show, :destroy, :edit, :update, ]do # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     resources :book_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
-
- 
+    
  end
+  resources :groups, only: [ :new, :create, :index, :show, :destroy, :edit, :update,]do
+   resource :group_users, only: [:create, :destroy]
+  end
    get 'search' => 'searches#search'
 end 
