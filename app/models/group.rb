@@ -1,5 +1,6 @@
 class Group < ApplicationRecord
- has_many:group_users, dependent: :destroy
+ has_many :group_users
+ has_many:users, through: :group_users
   attachment :profile_image
    attachment :image
    def joined_by?(user)

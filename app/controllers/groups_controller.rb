@@ -7,6 +7,7 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(post_group_params)
     @group.owner_id = current_user.id
+    @group.users << current_user
     @group.save
      redirect_to groups_path
   end
@@ -24,7 +25,7 @@ class GroupsController < ApplicationController
     @user = User.find(current_user.id)
    @group_users = GroupUser.where(group_id: @group.id)
 
-    @owner = User.where(id: @group.owner_id)
+  
  end
  
   def edit
