@@ -8,13 +8,17 @@ Rails.application.routes.draw do
     end
   end
   resources :relationships, only: [:create, :destroy]
+  
   resources :books, only: [:new, :create, :index, :show, :destroy, :edit, :update, ]do # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     resources :book_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
     
- end
+  end
   resources :groups, only: [ :new, :create, :index, :show, :destroy, :edit, :update,]do
    resource :group_users, only: [:create, :destroy]
+    get "new/mail" => "groups#new_mail"
+    get "send/mail" => "groups#send_mail"
   end
    get 'search' => 'searches#search'
+   
 end 
